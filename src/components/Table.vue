@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Mesai Saatileri Girişler</h1>
+    <h1>Eğitim Tamamlama Girişleri</h1>
     <div class="input-group">
       <form @submit.prevent="send()" class="form">
         <input
@@ -89,7 +89,7 @@ export default {
   },
 
   methods: {
-    send: function() {
+    send() {
       const sendItem = {
         name: this.name,
         tckn: this.tckn,
@@ -108,6 +108,7 @@ export default {
         .then(() => this.allList.push(sendItem))
         .catch((error) => console.log(error));
     },
+
     sortBy(name) {
       if (this.asc) {
         this.allList.sort((a, b) => a[name].localeCompare(b[name]));
@@ -118,10 +119,14 @@ export default {
       }
       this.sortedName = name;
     },
+
     handleSorted(name) {
       return name === this.sortedName ? "selectedTh" : null;
     },
-    downloadExcel() {},
+
+    downloadExcel() {
+      // TODO: download as a excel method will add here!
+    },
 
     deleteItem(id) {
       axios
@@ -131,8 +136,6 @@ export default {
         });
     },
   },
-
-  computed: {},
 
   created() {
     axios
