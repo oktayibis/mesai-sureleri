@@ -9,7 +9,7 @@
           required
           placeholder="TCKN"
           type="text"
-          v-model="tckn"
+          v-model.number="tckn"
         />
         <input required placeholder="İsim Soyisim" type="text" v-model="name" />
         <input
