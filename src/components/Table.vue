@@ -31,7 +31,7 @@
       </div>
     </div>
 
-    <div class="list">
+    <div v-if="allList" class="list">
       <table>
         <thead>
           <th @click="sortBy('tckn')" :class="handleSorted('tckn')">
@@ -117,10 +117,14 @@ export default {
 
     sortBy(name) {
       if (this.asc) {
-        this.allList.sort((a, b) => a[name].localeCompare(b[name]));
+        this.allList.sort((a, b) =>
+          a[name].toString().localeCompare(b[name].toString())
+        );
         this.asc = false;
       } else {
-        this.allList.sort((a, b) => b[name].localeCompare(a[name]));
+        this.allList.sort((a, b) =>
+          b[name].toString().localeCompare(a[name].toString())
+        );
         this.asc = true;
       }
       this.sortedName = name;
@@ -147,7 +151,7 @@ export default {
     filtered() {
       let filter = new RegExp(this.searchText, "i");
       return this.allList.filter(
-        (el) => el.name.match(filter) || el.tckn.match(filter)
+        (el) => el.name.match(filter) || el.tckn.toString().match(filter)
       );
     },
   },
