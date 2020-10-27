@@ -25,7 +25,12 @@
         </select>
         <button class="btn-green" type="submit">Ekle</button>
       </form>
+      <div class="search-area">
+        <label for="search">Ara</label>
+        <input id="search" type="text" v-model="searchText" placeholder="ara" />
+      </div>
     </div>
+
     <div class="list">
       <table>
         <thead>
@@ -49,7 +54,7 @@
           </th>
         </thead>
         <tbody>
-          <tr v-for="item in allList" :key="item.tckn">
+          <tr v-for="item in filtered" :key="item.tckn">
             <td>{{ item.tckn }}</td>
             <td>{{ item.name }}</td>
             <td>{{ item.selectedCourse }}</td>
@@ -81,6 +86,7 @@ export default {
       allList: [],
       sortedName: "",
       asc: true,
+      searchText: "",
     };
   },
 
@@ -137,6 +143,15 @@ export default {
     },
   },
 
+  computed: {
+    filtered() {
+      let filter = new RegExp(this.searchText, "i");
+      return this.allList.filter(
+        (el) => el.name.match(filter) || el.tckn.match(filter)
+      );
+    },
+  },
+
   created() {
     axios
       .get("https://vue-js-13b12.firebaseio.com/course.json")
@@ -167,7 +182,7 @@ h3 {
   border: 1px solid lightgray;
   border-radius: 10px;
   width: 80%;
-  margin: 0 auto;
+  margin: 10px auto;
   padding: 20px;
 }
 
@@ -228,5 +243,11 @@ th:hover {
 .btn-red:hover {
   background-color: rgb(95, 2, 2);
   cursor: pointer;
+}
+.search-area {
+  box-shadow: 0 0 3px;
+  margin: 20px auto;
+  width: max-content;
+  min-width: 60%;
 }
 </style>
