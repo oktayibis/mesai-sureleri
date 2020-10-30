@@ -27,12 +27,18 @@
       </form>
       <div class="search-area">
         <label for="search">Ara</label>
-        <input id="search" type="text" v-model="searchText" placeholder="ara" />
+        <input
+          id="search"
+          type="text"
+          v-model="searchText"
+          placeholder="ara"
+          required
+        />
       </div>
     </div>
 
     <div v-if="allList" class="list">
-      <table>
+      <table v-if="allList.length > 0">
         <thead>
           <th @click="sortBy('tckn')" :class="handleSorted('tckn')">
             TCKN
@@ -67,7 +73,11 @@
           </tr>
         </tbody>
       </table>
+      <div v-else class="loading">
+        <h2>loading table....</h2>
+      </div>
     </div>
+
     <button class="btn-green" @click="downloadExcel">Excel Olarak İndir</button>
   </div>
 </template>
@@ -202,6 +212,14 @@ select {
 input:focus {
   background-color: whitesmoke;
   border: 1px solid whitesmoke;
+}
+input:invalid {
+  border-color: red;
+}
+
+input:valid {
+  background-color: #afffdb;
+  border-color: green;
 }
 .btn-green {
   background-color: green;

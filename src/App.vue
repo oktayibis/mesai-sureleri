@@ -1,6 +1,9 @@
 <template>
-  <div id="app">
-    <Table />
+  <div>
+
+    <div id="app">
+      <Table />
+    </div>
   </div>
 </template>
 
